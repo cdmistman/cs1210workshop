@@ -9,6 +9,47 @@ import java.util.concurrent.*;
 import java.util.regex.*;
 
 public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int n = Integer.parseInt(bufferedReader.readLine().trim());
+
+        String[] dataTemp = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+        List<Integer> data = new ArrayList<>();
+
+        for (int i = 0; i < n; i++) {
+            int dataItem = Integer.parseInt(dataTemp[i]);
+            data.add(dataItem);
+        }
+
+        List<List<Integer>> edges = new ArrayList<>();
+
+        for (int i = 0; i < n - 1; i++) {
+            String[] edgesRowTempItems = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+            List<Integer> edgesRowItems = new ArrayList<>();
+
+            for (int j = 0; j < 2; j++) {
+                int edgesItem = Integer.parseInt(edgesRowTempItems[j]);
+                edgesRowItems.add(edgesItem);
+            }
+
+            edges.add(edgesRowItems);
+        }
+
+        int result = Result.cutTheTree(data, edges);
+
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+	}
+}
+
+class Result {
     // This is my solution to https://www.hackerrank.com/challenges/cut-the-tree/problem
     // I completed this in ~20 minutes, and did not work to optimize it.
     // Currently, it fails the HackerRank test suite because of time - 
@@ -89,43 +130,4 @@ public class Solution {
             return minDiff.intValue();
         }
     }
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
-
-        int n = Integer.parseInt(bufferedReader.readLine().trim());
-
-        String[] dataTemp = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
-
-        List<Integer> data = new ArrayList<>();
-
-        for (int i = 0; i < n; i++) {
-            int dataItem = Integer.parseInt(dataTemp[i]);
-            data.add(dataItem);
-        }
-
-        List<List<Integer>> edges = new ArrayList<>();
-
-        for (int i = 0; i < n - 1; i++) {
-            String[] edgesRowTempItems = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
-
-            List<Integer> edgesRowItems = new ArrayList<>();
-
-            for (int j = 0; j < 2; j++) {
-                int edgesItem = Integer.parseInt(edgesRowTempItems[j]);
-                edgesRowItems.add(edgesItem);
-            }
-
-            edges.add(edgesRowItems);
-        }
-
-        int result = cutTheTree(data, edges);
-
-        bufferedWriter.write(String.valueOf(result));
-        bufferedWriter.newLine();
-
-        bufferedReader.close();
-        bufferedWriter.close();
-	}
 }
